@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col-md-2 col-sm-3 text-center"></div>
+            <a class="story-img" href="#">
+                <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 100px;
+                        height: 100px; background-color: #12AB82;
+                        color: #ffffff" class="img-cirlce">
+            </a>
+        </div>
+        <div class="col-md-10 col-sm-9">
+            <h3>{{ post.title }}</h3>
+            <div class="row">
+                <div class="col-xs-9">
+                    {% if post.image %}
+                        <img src="/media/{{ post.image }}">
+                    {% endif %}
+                    <p>{{ post.content }}</p>
+                    <p><button class="btn btn-default" onclick="location.href='/blog'">Back To Blog</button></p>
+                    <p><button class="btn btn-default" onclick="location.href='edit'">Edit</button></p>
+                    <p>{{ post.published_date }} |
+                            <strong>Views</strong> {{ post.views }} |
+                            <strong>Tag</strong> {{ post.Tag }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
