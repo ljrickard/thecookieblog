@@ -2,7 +2,7 @@ from base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['the-cookie-blog.herokuapp.com']
 
 
 DATABASES = {
@@ -17,7 +17,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get("S3-BUCKET", "")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_S3_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_S3_SECRET_ACCESS_KEY", "")
 AWS_HOST_REGION = os.environ.get("AWS_S3_HOST_REGION", "")
-AWS_S3_CUSTOM_DOMAIN = '%s.%s' % AWS_STORAGE_BUCKET_NAME, AWS_HOST_REGION
+AWS_S3_CUSTOM_DOMAIN = '%s.%s' % (AWS_STORAGE_BUCKET_NAME, AWS_HOST_REGION)
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
