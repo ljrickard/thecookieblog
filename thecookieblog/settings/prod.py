@@ -1,4 +1,5 @@
 from base import *
+import dj_database_url
 
 DEBUG = os.environ.get("DEBUG", False)
 
@@ -7,10 +8,13 @@ ALLOWED_HOSTS = ['the-cookie-blog.herokuapp.com']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
     }
 }
+
+CLEAR_DB_URL = os.environ.get('CLEARDB_DATABASE_URL', '')
+DATABASES['default'] = dj_database_url.parse(CLEAR_DB_URL)
 
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get("S3-BUCKET", "")
