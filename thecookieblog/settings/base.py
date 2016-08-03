@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     'blog',
     'accounts',
     'payments',
-    'django_forms_bootstrap'
+    'django_forms_bootstrap',
+    'storages'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -88,12 +89,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# That will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them,
+# it'll include those HTTP headers in the response. Those HTTP headers in turn will tell browsers that they can cache
+# these files for a very long time
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
