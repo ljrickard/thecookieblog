@@ -1,16 +1,33 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from accounts.models import User
 from django.core.exceptions import ValidationError
 
 
 class UserRegistrationForm(UserCreationForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+
+    MONTH_CHOICES = [(i, i,) for i in xrange(1, 13)]
+    YEAR_CHOICES = [(i, i,) for i in xrange(2017, 2036)]
+
+    credit_card_number = forms.CharField(label='Credit card number')
+    cvv = forms.CharField(label='Security code (CVV)')
+    expiry_month = forms.ChoiceField(label="Month", choices=MONTH_CHOICES)
+    expiry_year = forms.ChoiceField(label="Year", choices=YEAR_CHOICES)
+    stripe_id = forms.CharField(widget=forms.HiddenInput)
+
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput
+    )
+
+    password2 = forms.CharField(
+        label='Password Confirmation',
+        widget=forms.PasswordInput
+    )
 
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2']
+        fields = ['email', 'password1', 'password2', 'stripe_id']
         exclude = ['username']
 
     def clean_password2(self):
@@ -25,10 +42,13 @@ class UserRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         instance = super(UserRegistrationForm, self).save(commit=False)
+
+        # automatically set to email address to create a unique identifier
         instance.username = instance.email
 
         if commit:
             instance.save()
+
         return instance
 
 
