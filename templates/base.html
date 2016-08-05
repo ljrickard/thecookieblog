@@ -9,8 +9,17 @@
     <link rel="stylesheet" href="{% static "css/blog.css" %}">
 </head>
 <body>
-<div id="masthead">
-    <div class="container">
+<div class="container">
+    <div id="masthead">
+        <ul class="nav nav-pills pull-right">
+            {% if user.is_authenticated %}
+                <li><a href="/profile/">Profile</a></li>
+                <li><a href="/logout/">Log out</a></li>
+            {% else %}
+                <li><a href="/register/">Register</a></li>
+                <li><a href="/login/">Log in</a></li>
+            {% endif %}
+        </ul>
         <div class="row">
             <h1>the cookie blog
                 <p id="logo" class="lead">where cookies crumble</p>
@@ -33,6 +42,7 @@
 
 <footer>
     <div class="container">
+        <p>All rights reserved. &copy; 2016</p>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"
