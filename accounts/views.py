@@ -10,6 +10,7 @@ import stripe
 from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET
+stripe.api_base = settings.STRIPE_BASE_URL
 
 
 def register(request):
@@ -21,7 +22,7 @@ def register(request):
                     amount=1999,
                     currency="USD",
                     description=form.cleaned_data['email'],
-                    card=form.cleaned_data['stripe_id']
+                    source=form.cleaned_data['stripe_id']
                 )
             except stripe.error.CardError:
                 messages.error(request, "Your card was declined")

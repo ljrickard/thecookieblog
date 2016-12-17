@@ -4,28 +4,29 @@
 
     {% for post in posts %}
 
-        <div class="row">
-                <hr>
-                <div class="col-md-2 col-sm-3 text-center">
-                <a class="story-img" href="#">
-                    <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 100px;
-                            height: 100px; background-color: #12AB82;
-                            color: #fff" class="img-cirlce">
+    <div class="row">
+        <hr>
+            <div class="col-md-2 col-sm-3 text-center">
+                <a class="story-img">
+                    <img class="img-cirlce" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"
+                         style="width: 100px;
+                         height: 100px;
+                         background-color: #FFFFFF;">
                 </a>
             </div>
-            <div class="col-md-10 col-sm-9">
-                <h3>{{ post.title }}</h3>
-                <div class="row">
-                    <div class="col-xs-9">
-                        <p>{{ post.content | truncatewords:30 }}</p>
-                        <p><button class="btn btn-default"
-                                   onclick="location.href={{ post.id }}">Read More</button></p>
-                        <p>{{ post.created_on }}
-                        </p>
+
+            <div class="post-preview" class="col-md-10 col-sm-9">
+                <h2 class="post-title">{{ post.title }}</h2>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <p>{{ post.content | truncatewords:30 }}</p>
+                            <p><button class="btn btn-default" onclick="location.href={{ post.id }}">Read More</button></p>
+                            <p class="post-meta">{{ post.created_on }}</p>
+                        </div>
                     </div>
-                </div>
             </div>
-        </div>
+    </div>
+
     {% endfor %}
 
 {% endblock content %}
